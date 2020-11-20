@@ -1,0 +1,134 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/authorization/authorization",
+			"style": {
+				"navigationBarTitleText": "宝欧智运维",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/home/home",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/service/service",
+			"style": {
+				"navigationBarTitleText": "服务",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "注册",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/home/document/document",
+			"style": {
+				"navigationBarTitleText": "备件档案",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/home/maintain/maintain",
+			"style": {
+				"navigationBarTitleText": "在修备件",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/home/acceptance/acceptance",
+			"style": {
+				"navigationBarTitleText": "等待验收",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/home/document/document_Item/document_Item",
+			"style": {
+				"navigationBarTitleText": "备件详情",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/home/maintain/maintain_Item/maintain_Item",
+			"style": {
+				"navigationBarTitleText": "在修备件",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/home/acceptance/acceptance_Item/acceptance_Item",
+			"style": {
+				"navigationBarTitleText": "等待验收",
+				"enablePullDownRefresh": false
+			}
+		}
+
+		, {
+			"path": "pages/home/news_item/news_item",
+			"style": {
+				"navigationBarTitleText": "资讯详情",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#245fb6",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+				"pagePath": "pages/home/home",
+				"iconPath": "static/icon/icon-tabbar/home.png",
+				"selectedIconPath": "static/icon/icon-tabbar/home-selected.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/service/service",
+				"iconPath": "static/icon/icon-tabbar/service.png",
+				"selectedIconPath": "static/icon/icon-tabbar/service-selected.png",
+				"text": "服务"
+			},
+			{
+				"pagePath": "pages/mine/mine",
+				"iconPath": "static/icon/icon-tabbar/mine.png",
+				"selectedIconPath": "static/icon/icon-tabbar/mine-selected.png",
+				"text": "我的"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "宝欧智运维",
+		"navigationBarBackgroundColor": "#397bd9",
+		"backgroundColor": "#F8F8F8"
+	},
+	"condition": { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式（list 的索引项）
+		"list": [{
+			"name": "授权页", //模式名称
+			"path": "pages/authorization/authorization" //启动页面，必选
+			//"query": "interval=4000&autoplay=false" 启动参数，在页面的onLoad函数里面得到。
+		}, {
+			"name": "资讯详情页", //模式名称
+			"path": "pages/home/news_item/news_item"
+		}, {
+			"name": "用户注册页", //模式名称
+			"path": "pages/register/register",
+			"query": "openid=owiwC5SmcsLsrwTO42VNBIPXf6So" //启动参数，在页面的onLoad函数里面得到。
+		}, {
+			"name": "首页调试", //模式名称
+			"path": "pages/home/home",
+			"query": "openid=owiwC5SmcsLsrwTO42VNBIPXf6So" //启动参数，在页面的onLoad函数里面得到。
+		}]
+	}
+}
