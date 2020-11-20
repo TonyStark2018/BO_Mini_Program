@@ -11,7 +11,15 @@
 				<view class="user_pos">{{user.app_User_Postion}}</view>
 				<view class="user_com">{{user.app_User_Company}}</view>
 			</view>
-			<view class="iconfont icon-kaitongchenggong">{{user.app_User_Status}}</view>
+
+			<view v-if="user.app_User_Status=='已开通'">
+				<view class="iconfont icon-kaitongchenggong icon-active">{{user.app_User_Status}}</view>
+			</view>
+
+			<view v-else>
+				<view class="iconfont icon-kaitongchenggong">{{user.app_User_Status}}</view>
+			</view>
+
 		</view>
 		<!-- 用户资料 -->
 
@@ -39,8 +47,6 @@
 			</view>
 		</view>
 		<!-- 资讯交流 -->
-
-		<view class="reach_Bottom" v-if="flag">---我是有底线的---</view>
 	</view>
 </template>
 
@@ -64,7 +70,6 @@
 
 				openid: '',
 				user: {},
-
 				// flag: false,
 			};
 		},
@@ -88,7 +93,6 @@
 				})
 				let user = res.data.data;
 				this.user = user;
-				
 				console.log(res)
 			},
 
@@ -102,25 +106,23 @@
 					})
 				} else {
 					uni.navigateTo({
-						url: module_url,
+						url: module_url + "?link_UID=" + this.user.app_User_ID,
 					})
 				}
 			},
+			
 			jumpToNews(news_ID) {
 				uni.navigateTo({
-					url:"news_item/news_item?news_ID="+news_ID,
+					url: "news_item/news_item?news_ID=" + news_ID,
 				})
 			}
 
 		},
-		// onReachBottom() {
-		// 	console.log("触发了上拉加载更多")
-		// 	if (this.new_List.length <= 36) {
-		// 		this.new_List = [...this.new_List, ...this.new_List]
-		// 	} else {
-		// 		this.flag = true
-		// 	}
-		// }
+		onPullDownRefresh() {
+			console.log('refresh');
+			this.getUserInfo()
+
+		}
 	}
 </script>
 
@@ -149,6 +151,10 @@
 			padding: 0 16rpx;
 			font-size: $small-font-size;
 			color: #013a80;
+		}
+
+		.icon-active {
+			color: #3264cd;
 		}
 
 		.icon-kaitongchenggong {

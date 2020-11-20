@@ -1,55 +1,54 @@
 <template>
 	<view>
 		<view class="doc_head">
-			<image class="doc_img" :src="doc_item.doc_img" mode="aspectFill"></image>
+			<image class="doc_img" :src="getImgSrc(main_item.doc_Img)" mode="aspectFill"></image>
 			<view class="doc_content">
-				<view class="doc_name">{{doc_item.doc_name}}</view>
-				<view class="doc_brand">{{doc_item.doc_brand}}</view>
-				<view class="doc_model">{{doc_item.doc_model}}</view>
+				<view class="doc_name">{{main_item.doc_Name}}</view>
+				<view class="doc_brand">{{main_item.doc_Brand}}</view>
+				<view class="doc_model">{{main_item.doc_Model}}</view>
 			</view>
 		</view>
 
 		<view class="doc_body">
-			<!-- 存疑 -->
 			<view class="doc_info">
-				<text>{{doc_item.create_dt}}</text>
-				<text>【{{doc_item.doc_type}}】</text>
-				<text>{{doc_item.doc_sn}}</text>
+				<text>{{main_item.create_dt}}</text>
+				<text>【{{main_item.doc_type}}】</text>
+				<text>{{main_item.doc_sn}}</text>
 			</view>
 
 			<view class="doc_title">服务单号</view>
-			<view class="doc_detail">{{doc_item.doc_no}}</view>
+			<view class="doc_detail">{{main_item.doc_no}}</view>
 
 			<view class="doc_title">故障描述</view>
-			<view class="doc_detail">{{doc_item.doc_des}}</view>
+			<view class="doc_detail">{{main_item.doc_des}}</view>
 
 			<view class="doc_title">附带设备</view>
-			<view class="doc_detail">{{doc_item.doc_attach}}</view>
+			<view class="doc_detail">{{main_item.doc_attach}}</view>
 
 			<view class="doc_title">要求交期</view>
-			<view class="doc_detail">{{doc_item.doc_delivery_time}}</view>
+			<view class="doc_detail">{{main_item.doc_deliver_dt}}</view>
 
 			<view class="doc_title">预计交期</view>
-			<view class="doc_detail">{{doc_item.doc_plan_time}}</view>
+			<view class="doc_detail">{{main_item.doc_delivery_time}}</view>
 
 			<view class="doc_title">当前状态</view>
-			<view class="doc_detail">{{doc_item.doc_status}}</view>
+			<view class="doc_detail">{{main_item.doc_status}}</view>
 
 			<view class="doc_title">进展情况</view>
-			<view class="doc_detail">{{doc_item.doc_progress_status}}</view>
+			<view class="doc_detail">{{main_item.doc_progress_status}}</view>
 
 			<view class="doc_title">收件图片</view>
 			<view class="doc_detail">
-				<image :src="doc_item.doc_receive_img01" mode="aspectFill"></image>
+				<image :src="getImgSrc(main_item.doc_receive_img01)" mode="aspectFill"></image>
 			</view>
 			<view class="doc_detail">
-				<image :src="doc_item.doc_receive_img02" mode="aspectFill"></image>
+				<image :src="getImgSrc(main_item.doc_receive_img02)" mode="aspectFill"></image>
 			</view>
 			<view class="doc_detail">
-				<image :src="doc_item.doc_receive_img03" mode="aspectFill"></image>
+				<image :src="getImgSrc(main_item.doc_receive_img03)" mode="aspectFill"></image>
 			</view>
 			<view class="doc_detail">
-				<image :src="doc_item.doc_receive_img04" mode="aspectFill"></image>
+				<image :src="getImgSrc(main_item.doc_receive_img04)" mode="aspectFill"></image>
 			</view>
 		</view>
 	</view>
@@ -59,22 +58,19 @@
 	export default {
 		data() {
 			return {
-				doc_item: {}
+				main_item: {}
 			};
 		},
-		onLoad() {
-			this.get_doc_item()
+		onLoad(params) {
+			this.getMainInfo(params.maid)
 		},
 		methods: {
-			async get_doc_item() {
-				uni.showLoading({
-					title: "Loading..."
-				})
+			async getMainInfo(maid) {
 				const res = await this.$myRequest({
-					url: "doc/item"
+					url: "/Api/Get_App_Main_Info?maid="+maid,
 				})
-				this.doc_item = res.data;
-				uni.hideLoading()
+				this.main_item = res.data.data;
+				console.log(this.main_item)
 			}
 		}
 	}

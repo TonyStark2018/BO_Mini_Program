@@ -23,7 +23,7 @@
 			};
 		},
 		onLoad() {
-			// this.checkUserInfo();
+			this.checkUserInfo();
 		},
 		methods: {
 			getAuthorize() {
@@ -35,9 +35,9 @@
 							uni.login({
 								provider: "weixin",
 								success: (res) => {
+									// let base_url = this.$dev_url;	//开发环境
+									let base_url = this.$online_url;	//生产环境
 									let js_code = res.code;
-									let base_url = "https://localhost:44399";
-									console.log(js_code)
 									uni.request({
 										url: base_url+"/Api/Get_App_User_OpenID_By_Code?Code="+js_code,
 										methods: 'POST',
@@ -46,11 +46,10 @@
 											var Json_result = JSON.parse(result);
 											console.log(Json_result)
 											
-											// 存储在Storage中
+											// 将openid、session_key存储在Storage
 											uni.setStorageSync("openid", Json_result['openid']);
 											uni.setStorageSync("session_key", Json_result['session_key']);
 											
-											//跳转注册页or首页
 											this.checkUserInfo();
 										},
 										fail: (err) => {
@@ -64,7 +63,7 @@
 				})
 			},
 
-			
+			//跳转注册页or首页
 			async checkUserInfo() {
 				let openid = uni.getStorageSync("openid");
 				console.log("openid:", openid);
