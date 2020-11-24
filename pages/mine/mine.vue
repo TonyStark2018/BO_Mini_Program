@@ -9,8 +9,10 @@
 				<view class="user_pos">{{user.position}}</view>
 			</view>
 
-			<view class="person_info"></view>
-			<!-- <view class="person_info">修改资料</view> -->
+			<view class="person_info">
+				<text class="iconfont icon-edit"></text>
+				<text class="person_info_text">修改资料</text>
+			</view>
 		</view>
 
 		<view class="mod_list">
@@ -84,7 +86,7 @@
 				uni.clearStorageSync("openid")
 				uni.clearStorageSync("session_key")
 				uni.redirectTo({
-					url:"../authorization/authorization"
+					url: "../authorization/authorization"
 				})
 			}
 		}
@@ -109,7 +111,7 @@
 		}
 
 		.user_info {
-			flex: 3;
+			flex: 2;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-around;
@@ -119,9 +121,15 @@
 		}
 
 		.person_info {
+			flex: 1;
+			align-self: flex-end;
+			text-align: right;
 			font-size: $small-font-size;
-			position: relative;
-			bottom: -90rpx;
+			padding-bottom: 24rpx;
+			
+			.person_info_text{
+				padding-left: 10rpx;
+			}
 		}
 	}
 
@@ -147,4 +155,3 @@
 		color: #666666;
 	}
 </style>
-

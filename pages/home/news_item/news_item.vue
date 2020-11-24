@@ -7,13 +7,17 @@
 			<view class="news_type">{{news_item.news_Type}}</view>
 		</view>
 		<view class="news_content">
-			<rich-text :nodes="news_item.news_Content"></rich-text>
+			<jyf-parser :html="news_item.news_Content" show-with-animation selectable lazy-load>加载中...</jyf-parser>
 		</view>
 	</view>
 </template>
 
 <script>
+	import jyfParser from "@/components/jyf-parser/jyf-parser";
 	export default {
+		components: {
+		    jyfParser
+		  },
 		data() {
 			return {
 				news_item: {}

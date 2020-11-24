@@ -3,10 +3,32 @@
 		<form @submit="formSubmit">
 			<view class="uniForm">
 				<view class="uni-form-item reg_item">
-					<view class="reg-title">* 单位名称</view>
-					<input class="input" name="company_Name" :value="cust_name" style="display: none;"/>
-					<uni-combox :candidates="candidates" placeholder="请选择公司全称" v-model="cust_name"></uni-combox>
+					<view class="reg-title">* 身份类型</view>
+					<picker mode="selector" :range="user_Identity_List" @change="handleIdentityChange($event)">
+						<view class="input">{{user_Identity_List[Identity_index]}}</view>
+					</picker>
 				</view>
+
+				<view class="uni-form-item reg_item" v-show="user_Identity=='合作伙伴'">
+					<view class="reg-title">* 单位名称</view>
+					<uni-combox :candidates="app_user.cust_Name_List" placeholder="请选择" v-model="cust_name" ></uni-combox>
+				</view>
+				
+				<view class="uni-form-item reg_item" v-show="user_Identity=='潜在客户'">
+					<view class="reg-title">* 单位名称</view>
+					<input class="input" :value="cust_name" v-model="cust_name" placeholder="请填写公司名称"/>
+				</view>
+
+				<view class="uni-form-item reg_item" v-show="user_Identity=='合作伙伴'">
+					<view class="reg-title">* 客户经理</view>
+					<picker mode="selector" :range="sales_Manager_List" @change="handleManagerChange($event)">
+						<view class="input">{{sales_Manager_List[Manager_index]}}</view>
+					</picker>
+				</view>
+
+
+
+
 				<view class="uni-form-item reg_item">
 					<view class="reg-title">担任职务</view>
 					<input class="input" name="position" type="text" placeholder="请填写您的职务名称" />
@@ -34,8 +56,15 @@
 		},
 		data() {
 			return {
-				candidates: [],
+				app_user: {},
 				cust_name: '',
+				user_Identity: '',
+				user_Identity_List: [],
+				Identity_index: 0,
+
+				sales_Manager: '',
+				sales_Manager_List: [],
+				Manager_index: 0,
 
 				openid: "",
 				nickName: "",
@@ -48,20 +77,32 @@
 		onLoad(param) {
 			this.openid = param.openid;
 			this.getUserInfo();
-			this.getCandidates();
+			this.getUserEmpty();
 		},
 		methods: {
+			handleIdentityChange(e) {
+				this.Identity_index = e.detail.value;
+				this.user_Identity = this.user_Identity_List[this.Identity_index]
+			},
+			handleManagerChange(e) {
+				this.Manager_index = e.detail.value;
+				this.sales_Manager = this.sales_Manager_List[this.Manager_index]
+			},
+
 			jumpToHome() {
 				uni.switchTab({
 					url: "../home/home"
 				})
 			},
 			// 候选客户
-			async getCandidates() {
+			async getUserEmpty() {
 				const res = await this.$myRequest({
-					url: "/Api/Get_Customer_List",
+					url: "/Api/Get_App_User_Sign_In",
 				})
-				this.candidates = res.data.data;
+				this.app_user = res.data.data;
+				this.user_Identity_List = ["请选择", ...res.data.data.user_Identity_List]
+				this.sales_Manager_List = ["请选择", ...res.data.data.sales_Manager_List]
+				// console.log(this.sales_Manager_List)
 			},
 
 			// 获取用户已授权信息
@@ -88,10 +129,12 @@
 					url: "/Api/Create_App_User_Sign_In",
 					method: 'POST',
 					data: {
+						User_Identity: this.user_Identity,
+						Company_Name: this.cust_name,
+						Sales_Manager: this.sales_Manager,
 						Real_Name: formdata.real_Name,
 						Position: formdata.position,
 						Tel: formdata.tel,
-						Company_Name: formdata.company_Name,
 
 						OpenID: this.openid,
 						NickName: this.nickName,
@@ -124,7 +167,7 @@
 			width: 70vw;
 
 			.reg_item {
-				margin-bottom: 32rpx;
+				margin-bottom: 28rpx;
 			}
 
 			.reg-title {
@@ -135,16 +178,17 @@
 			.reg-tig {
 				font-size: 22rpx;
 				color: #707b8f;
-				margin-bottom: 20rpx;
+				margin-bottom: 16rpx;
 			}
 
 			.input {
 				font-size: 32rpx;
+				color: #808080;
 				border-bottom: 2rpx solid #2874d7;
 				padding: 20rpx 0;
 			}
-			
-			.uni-combox{
+
+			.uni-combox {
 				font-size: 32rpx;
 				border-bottom: 2rpx solid #2874d7;
 			}

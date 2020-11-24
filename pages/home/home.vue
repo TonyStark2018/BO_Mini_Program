@@ -3,7 +3,6 @@
 		<!-- 用户资料 -->
 		<view class="user_wrap">
 			<view class="user_img">
-				<!-- <image src="../../static/icon/icon-common/Man.png" mode="widthFix"></image> -->
 				<image :src="user.app_User_Img" mode="widthFix"></image>
 			</view>
 			<view class="user_info">
@@ -13,11 +12,13 @@
 			</view>
 
 			<view v-if="user.app_User_Status=='已开通'">
-				<view class="iconfont icon-kaitongchenggong icon-active">{{user.app_User_Status}}</view>
+				<text class="iconfont icon-kaitong"></text>
+				<text class="user_status_active">{{user.app_User_Status}}</text>
 			</view>
 
 			<view v-else>
-				<view class="iconfont icon-kaitongchenggong">{{user.app_User_Status}}</view>
+				<text class="iconfont icon-weikaitong"></text>
+				<text class="user_status_active_not">{{user.app_User_Status}}</text>
 			</view>
 
 		</view>
@@ -110,7 +111,7 @@
 					})
 				}
 			},
-			
+
 			jumpToNews(news_ID) {
 				uni.navigateTo({
 					url: "news_item/news_item?news_ID=" + news_ID,
@@ -153,14 +154,27 @@
 			color: #013a80;
 		}
 
-		.icon-active {
-			color: #3264cd;
-		}
-
-		.icon-kaitongchenggong {
+		.icon-kaitong,
+		 {
 			flex: 1;
-			padding-top: 18rpx;
-			font-size: $small-font-size;
+			font-size: $def-font-size;
+			color: $theme-green;
+			padding-right:10rpx;
+		}
+		
+		.user_status_active{
+			// color: $theme-green;
+		}
+		
+		.icon-weikaitong{
+			flex: 1;
+			font-size: $def-font-size;
+			color: $theme-gray;
+			padding-right:10rpx;
+		}
+		
+		.user_status_active_not{
+			// color: $theme-gray;
 		}
 	}
 

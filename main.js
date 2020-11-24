@@ -12,9 +12,9 @@ Vue.prototype.$real_url = "https://bo.mrodt.com"
 
 Vue.prototype.getImgSrc = (img) => {
 	let imgSrc = img
-	if(imgSrc!==''){
+	if (imgSrc !== '') {
 		imgSrc = "https://bo.mrodt.com/" + img
-	}else{
+	} else {
 		imgSrc = "https://bo.mrodt.com/Images/NotImg.jpg"
 	}
 	return imgSrc;
