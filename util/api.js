@@ -1,8 +1,9 @@
 // let Base_Path = "";
-// let Base_Path = "https://www.fastmock.site/mock/e6bc157b60be5751a2556725db68e1f1/_testApi/"; //mock.js
+// let Base_Path = "https://www.fastmock.site/mock/e6bc157b60be5751a2556725db68e1f1/_testApi/";  //mock.js
 
 
-let base_url = "https://bo-test.mrodt.com";  //生成环境
+ let base_url = "https://bo.mrodt.com";  //线上发布
+// let base_url = "https://bo-test.mrodt.com";  //生成环境
 // let base_url = "https://localhost:44399"; //开发环境
 export const myRequest = (options) => {
 	return new Promise((resolve, reject) => {
@@ -11,7 +12,7 @@ export const myRequest = (options) => {
 			mask: true,
 		})
 
-		uni.request({
+		uni.request({ 
 			url: base_url + options.url,
 			method: options.method || 'GET',
 			data: options.data || {},
@@ -21,12 +22,13 @@ export const myRequest = (options) => {
 					uni.showToast({
 						title: res.data.error_Msg,
 						icon: "none",
-						duration: 2200,
+						duration: 3000,
 					})
+				}else{
+					resolve(res);
+					// console.log(res)
+					uni.hideLoading();
 				}
-				resolve(res);
-				// console.log(res)
-				uni.hideLoading();
 			},
 			fail: (err) => {
 				uni.showToast({

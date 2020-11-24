@@ -4,7 +4,8 @@
 			<view class="uniForm">
 				<view class="uni-form-item reg_item">
 					<view class="reg-title">* 单位名称</view>
-					<input class="input" name="company_Name" type="text" placeholder="请填写公司全称" />
+					<input class="input" name="company_Name" :value="cust_name" style="display: none;"/>
+					<uni-combox :candidates="candidates" placeholder="请选择公司全称" v-model="cust_name"></uni-combox>
 				</view>
 				<view class="uni-form-item reg_item">
 					<view class="reg-title">担任职务</view>
@@ -26,10 +27,15 @@
 </template>
 
 <script>
+	import uniCombox from "@/components/uni-combox/uni-combox"
 	export default {
+		components: {
+			uniCombox
+		},
 		data() {
 			return {
-				app_cust_list: [],
+				candidates: [],
+				cust_name: '',
 
 				openid: "",
 				nickName: "",
@@ -39,12 +45,26 @@
 				city: "",
 			}
 		},
+		onLoad(param) {
+			this.openid = param.openid;
+			this.getUserInfo();
+			this.getCandidates();
+		},
 		methods: {
 			jumpToHome() {
 				uni.switchTab({
 					url: "../home/home"
 				})
 			},
+			// 候选客户
+			async getCandidates() {
+				const res = await this.$myRequest({
+					url: "/Api/Get_Customer_List",
+				})
+				this.candidates = res.data.data;
+			},
+
+			// 获取用户已授权信息
 			getUserInfo() {
 				uni.getUserInfo({
 					provider: "weixin",
@@ -61,6 +81,7 @@
 				});
 			},
 
+			// 提交表单
 			async formSubmit(e) {
 				var formdata = e.detail.value;
 				const res = await this.$myRequest({
@@ -85,10 +106,6 @@
 					this.jumpToHome();
 				}
 			}
-		},
-		onLoad(param) {
-			this.openid = param.openid;
-			this.getUserInfo();
 		}
 	}
 </script>
@@ -125,6 +142,11 @@
 				font-size: 32rpx;
 				border-bottom: 2rpx solid #2874d7;
 				padding: 20rpx 0;
+			}
+			
+			.uni-combox{
+				font-size: 32rpx;
+				border-bottom: 2rpx solid #2874d7;
 			}
 
 			.confirm-btn {

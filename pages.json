@@ -137,6 +137,9 @@
 			"name": "备件列表详情页", //模式名称
 			"path": "pages/home/document/document_Item/document_Item",
 			"query": "doc_ID=20200904-1449-4773-8094-163b5c94de1f&uid=20201120-0957-4902-8ca7-67653438cb21" //启动参数，在页面的onLoad函数里面得到。
+		}, {
+			"name": "我的", //模式名称
+			"path": "pages/mine/mine"
 		}]
 	}
 }

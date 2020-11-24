@@ -8,11 +8,12 @@ Vue.prototype.$myRequest = myRequest
 
 Vue.prototype.$dev_url = "https://localhost:44399"
 Vue.prototype.$online_url = "https://bo-test.mrodt.com"
+Vue.prototype.$real_url = "https://bo.mrodt.com"
 
 Vue.prototype.getImgSrc = (img) => {
 	let imgSrc = img
 	if(imgSrc!==''){
-		imgSrc = "https://bo-test.mrodt.com/" + img
+		imgSrc = "https://bo.mrodt.com/" + img
 	}else{
 		imgSrc = "https://bo.mrodt.com/Images/NotImg.jpg"
 	}
