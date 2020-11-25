@@ -28,12 +28,12 @@
 
 			<view class="doc_title">修复前图</view>
 			<view class="doc_detail">
-				<image :src="getImgSrc(item.rep_before)" @tap="_previewImage(item.rep_before)" mode="aspectFill"></image>
+				<image :src="getImgSrc(item.rep_before)" mode="aspectFill"></image>
 			</view>
 
 			<view class="doc_title">修复后图</view>
 			<view class="doc_detail">
-				<image :src="getImgSrc(item.rep_after)" @tap="_previewImage(item.rep_after)" mode="aspectFill"></image>
+				<image :src="getImgSrc(item.rep_after)" mode="aspectFill"></image>
 			</view>
 
 			<view class="doc_title">发运日期</view>
@@ -79,16 +79,6 @@
 				this.doc_item = res.data.data;
 				this.main_List = this.doc_item.main_List
 				console.log(res);
-			},
-
-			_previewImage(img) {
-				var imgArr = [];
-				imgArr.push(img);
-				//预览图片
-				uni.previewImage({
-					urls: imgArr,
-					current: imgArr[0]
-				});
 			}
 		}
 	}

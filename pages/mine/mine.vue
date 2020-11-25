@@ -7,16 +7,26 @@
 			<view class="user_info">
 				<view class="user_name">{{user.real_Name}}</view>
 				<view class="user_pos">{{user.position}}</view>
+				<view class="user_com">{{user.company_Name}}</view>
 			</view>
+
 
 			<view class="person_info">
 				<text class="iconfont icon-edit"></text>
-				<text class="person_info_text">修改资料</text>
+				<navigator url="personal/personal" style="display: inline;">修改资料</navigator>
 			</view>
 		</view>
 
-		<view class="mod_list">
-			<view class="mod_item" v-for="item in list" :key="item.name">
+		<view class="mod_list" v-if="user.user_Identity=='运营经理'">
+			<view class="mod_item" v-for="item in inner_list" :key="item.name">
+				<view class="mod_name">{{item.name}}</view>
+				<view class="mod_icon">
+					<uni-icons type="arrowright" size="18"></uni-icons>
+				</view>
+			</view>
+		</view>
+		<view class="mod_list" v-else>
+			<view class="mod_item" v-for="item in outer_list" :key="item.name">
 				<view class="mod_name">{{item.name}}</view>
 				<view class="mod_icon">
 					<uni-icons type="arrowright" size="18"></uni-icons>
@@ -24,8 +34,9 @@
 			</view>
 		</view>
 
+
 		<view>
-			<button type="default" class="out_btn" @click="login_out">退出登陆</button>
+			<button type="default" class="out_btn" @click="login_out">退出登录</button>
 		</view>
 	</view>
 </template>
@@ -38,7 +49,7 @@
 		},
 		data() {
 			return {
-				list: [{
+				inner_list: [{
 					name: "备件商城",
 					url: ""
 				}, {
@@ -57,6 +68,13 @@
 					name: "用户报修",
 					url: ""
 				}],
+				outer_list: [{
+					name: "备件商城",
+					url: ""
+				}, {
+					name: "我的报修",
+					url: ""
+				}],
 				user: {},
 				openid: '',
 			};
@@ -64,6 +82,9 @@
 		onLoad() {
 			this.getOpenid();
 			this.getUserInfo();
+		},
+		onShow() {
+			this.getUserInfo()
 		},
 		methods: {
 			getOpenid() {
@@ -82,6 +103,7 @@
 				this.user = user;
 				console.log(user)
 			},
+
 			login_out() {
 				uni.clearStorageSync("openid")
 				uni.clearStorageSync("session_key")
@@ -114,7 +136,7 @@
 			flex: 2;
 			display: flex;
 			flex-direction: column;
-			justify-content: space-around;
+			justify-content: space-evenly;
 			padding: 0 16rpx;
 			font-size: $small-font-size;
 			color: #013a80;
@@ -122,12 +144,11 @@
 
 		.person_info {
 			flex: 1;
-			align-self: flex-end;
 			text-align: right;
 			font-size: $small-font-size;
-			padding-bottom: 24rpx;
-			
-			.person_info_text{
+			padding-top: 18rpx;
+
+			.person_info_text {
 				padding-left: 10rpx;
 			}
 		}

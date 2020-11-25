@@ -6,8 +6,13 @@
 				"navigationBarTitleText": "宝欧智运维",
 				"enablePullDownRefresh": false
 			}
-		},
-		{
+		}, {
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "注册",
+				"enablePullDownRefresh": false
+			}
+		}, {
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "首页",
@@ -25,13 +30,7 @@
 				"navigationBarTitleText": "我的",
 				"enablePullDownRefresh": false
 			}
-		}, {
-			"path": "pages/register/register",
-			"style": {
-				"navigationBarTitleText": "注册",
-				"enablePullDownRefresh": false
-			}
-		}, {
+		},{
 			"path": "pages/home/document/document",
 			"style": {
 				"navigationBarTitleText": "备件档案",
@@ -70,15 +69,19 @@
 				"navigationBarTitleText": "等待验收",
 				"enablePullDownRefresh": false
 			}
-		}
-
-		, {
+		}, {
 			"path": "pages/home/news_item/news_item",
 			"style": {
 				"navigationBarTitleText": "资讯详情",
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "pages/mine/personal/personal",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
 		}
 	],
 	"tabBar": {
@@ -138,8 +141,14 @@
 			"path": "pages/home/document/document_Item/document_Item",
 			"query": "doc_ID=20200904-1449-4773-8094-163b5c94de1f&uid=20201120-0957-4902-8ca7-67653438cb21" //启动参数，在页面的onLoad函数里面得到。
 		}, {
+			"name": "服务", //模式名称
+			"path": "pages/service/service"
+		}, {
 			"name": "我的", //模式名称
 			"path": "pages/mine/mine"
+		}, {
+			"name": "修改资料", //模式名称
+			"path": "pages/mine/personal/personal"
 		}]
 	}
 }

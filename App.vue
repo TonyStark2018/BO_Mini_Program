@@ -1,23 +1,6 @@
 <script>
 	export default {
 		onLaunch: function() {
-			//首次进入小程序
-			// uni.getStorage({
-			// 	key: 'openid',
-			// 	success: (res) => {
-			// 		console.log(res.data);
-			// 	},
-			// 	fail: (err) => {
-			// 		// 若无openid,则跳转至授权页
-			// 		console.log(err.data);
-			// 		if (.data == 'undefined') {
-			// 			uni.navigateTo({
-			// 				url: "pages/authorization/authorization"
-			// 			})
-			// 		}
-			// 	}
-			// })
-
 			console.log('App Launch')
 		},
 		onShow: function() {
@@ -33,6 +16,8 @@
 	/*提交按钮样式 */
 	.submit_btn {
 		background-color: $theme-blue;
+		color: #FFFFFF;
+		font-size: $def-font-size;
 	}
 
 	/*iconfont样式 */
