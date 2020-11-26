@@ -1,6 +1,6 @@
 <template>
-	<view>
-		行业分类
+	<view style="display: flex; align-items: center; justify-items: center; height: 100vh;">
+		<image :src="getImgSrc('Images/Img_Coding.jpg')" mode="widthFix" style="width: 100%;"></image>
 	</view>
 </template>
 

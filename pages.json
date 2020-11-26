@@ -15,13 +15,13 @@
 		}, {
 			"path": "pages/home/home",
 			"style": {
-				"navigationBarTitleText": "首页",
+				"navigationBarTitleText": "用户首页",
 				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/service/service",
 			"style": {
-				"navigationBarTitleText": "服务",
+				"navigationBarTitleText": "专业服务",
 				"enablePullDownRefresh": false
 			}
 		}, {
@@ -79,11 +79,20 @@
 		}, {
 			"path": "pages/mine/personal/personal",
 			"style": {
-				"navigationBarTitleText": "",
+				"navigationBarTitleText": "资料修改",
 				"enablePullDownRefresh": false
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/mine/verify/verify",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "用户验证",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+    ],
 	"tabBar": {
 		"color": "#7A7E83",
 		"selectedColor": "#245fb6",
@@ -149,6 +158,10 @@
 		}, {
 			"name": "修改资料", //模式名称
 			"path": "pages/mine/personal/personal"
+		}, {
+			"name": "用户验证", //模式名称
+			"path": "pages/mine/verify/verify",
+			"query":"uid=20200331-1331-459e-9fe1-3d1dff4d8238"
 		}]
 	}
 }

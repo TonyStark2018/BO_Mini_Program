@@ -1,5 +1,5 @@
 <template>
-	<view style="height: 100vh;">
+	<view style="height:100vh;">
 		<view class="myNavBar">
 			<view v-for="(item,index) in nav_bar" :class="['nav_title',current===index?'text_active':'']" :key="index" @click="setCurrent(index)">
 				<text>{{item}}</text>
@@ -11,11 +11,9 @@
 			<swiper-item class="swiper-item">
 				<first></first>
 			</swiper-item>
-
 			<swiper-item class="swiper-item">
 				<second></second>
 			</swiper-item>
-
 			<swiper-item class="swiper-item">
 				<third></third>
 			</swiper-item>
@@ -55,12 +53,12 @@
 	.myNavBar {
 		display: flex;
 		justify-content: space-around;
+		background-color: white;
 		border-bottom: 2rpx solid #eaeaea;
-		padding-top: 12rpx;
+		padding: 15rpx 0;
 		position: sticky;
 		top: 0px;
 		z-index: 10;
-		background-color: white;
 
 		.nav_title {
 			font-size: $def-font-size;
@@ -72,10 +70,6 @@
 			border-bottom: 4rpx solid $theme-blue;
 			padding-bottom: 4rpx;
 			color: $theme-blue;
-
-			text {
-				padding: 0 6rpx;
-			}
 		}
 	}
 	

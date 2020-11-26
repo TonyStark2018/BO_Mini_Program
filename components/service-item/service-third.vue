@@ -7,7 +7,7 @@
 					<view class="msd_content">
 						<view class="msd_name">{{item.msD_Name}}</view>
 						<view class="msd_brand">{{item.msD_Sn}}</view>
-						<view class="msd_model">{{item.msD_Info}}</view>
+						<view class="msd_info">{{item.msD_Info}}</view>
 					</view>
 				</view>
 			</view>
@@ -24,7 +24,6 @@
 		},
 		mounted() {
 			this.getPageInfo();
-			console.log("mounted...");
 		},
 		methods: {
 			async getPageInfo() {
@@ -32,7 +31,6 @@
 					url: "/Api/Get_App_MSD_List"
 				})
 				this.msd_list = res.data.data;
-				console.log(this.msd_list);
 			}
 		}
 	}
@@ -53,7 +51,6 @@
 				.msd_img {
 					flex: 1;
 					border-radius: 10rpx;
-					border-bottom-right-radius: 0rpx;
 					border: 2rpx solid #ced7de;
 					width: 100%;
 					height: 300rpx;
@@ -68,7 +65,13 @@
 
 					.msd_name {
 						font-size: $def-font-size;
-						font-weight: bold;
+						color: $theme-blue;
+						min-height: 60rpx;
+					}
+					
+					.msd_info {
+						height: 100%;
+						color: #666;
 					}
 				}
 			}
