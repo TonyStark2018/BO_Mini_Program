@@ -25,7 +25,7 @@
 		<!-- 用户资料 -->
 
 		<!-- 备件档案、在修备件、等待验收 -->
-		<view class="module">
+		<view class="module" v-show="user.app_User_Identity!='运营经理'">
 			<view class="module_wrap" v-for="item in module_List" :key='item.module_name' @click="checkUserInfo(item.module_url)">
 				<view :class="item.module_font"></view>
 				<text class="module_text">{{item.module_name}}</text>
@@ -121,8 +121,10 @@
 		},
 		onPullDownRefresh() {
 			console.log('refresh');
-			this.getUserInfo()
-
+			this.getUserInfo();
+			setTimeout(function() {
+				uni.stopPullDownRefresh();
+			}, 2000);
 		}
 	}
 </script>
@@ -155,25 +157,25 @@
 		}
 
 		.icon-kaitong,
-		 {
+			{
 			flex: 1;
 			font-size: $def-font-size;
 			color: $theme-green;
-			padding-right:10rpx;
+			padding-right: 10rpx;
 		}
-		
-		.user_status_active{
+
+		.user_status_active {
 			// color: $theme-green;
 		}
-		
-		.icon-weikaitong{
+
+		.icon-weikaitong {
 			flex: 1;
 			font-size: $def-font-size;
 			color: $theme-gray;
-			padding-right:10rpx;
+			padding-right: 10rpx;
 		}
-		
-		.user_status_active_not{
+
+		.user_status_active_not {
 			// color: $theme-gray;
 		}
 	}

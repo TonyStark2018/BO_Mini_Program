@@ -18,7 +18,7 @@
 		</view>
 
 		<view class="mod_list" v-if="user.user_Identity=='运营经理'">
-			<view class="mod_item" v-for="item in inner_list" :key="item.name">
+			<view class="mod_item" v-for="item in inner_list" :key="item.name" @click="jumpToItemPage(item.url,user.uid)">
 				<view class="mod_name">{{item.name}}</view>
 				<view class="mod_icon">
 					<uni-icons type="arrowright" size="18"></uni-icons>
@@ -63,7 +63,7 @@
 					url: ""
 				}, {
 					name: "用户验证",
-					url: ""
+					url: "verify/verify"
 				}, {
 					name: "用户报修",
 					url: ""
@@ -83,9 +83,6 @@
 			this.getOpenid();
 			this.getUserInfo();
 		},
-		onShow() {
-			this.getUserInfo()
-		},
 		methods: {
 			getOpenid() {
 				let openid = uni.getStorageSync("openid");
@@ -99,11 +96,15 @@
 						OpenID: this.openid,
 					}
 				})
-				let user = res.data.data;
-				this.user = user;
-				console.log(user)
+				this.user  = res.data.data;
 			},
-
+			jumpToItemPage(url,uid) {
+				if(url!==''){
+					uni.navigateTo({
+						url:url+"?uid="+uid
+					})
+				}
+			},
 			login_out() {
 				uni.clearStorageSync("openid")
 				uni.clearStorageSync("session_key")
@@ -167,6 +168,10 @@
 			justify-content: space-between;
 			color: #666666;
 			border-bottom: 2rpx solid #ededed;
+			
+			.mod_name{
+				
+			}
 		}
 	}
 

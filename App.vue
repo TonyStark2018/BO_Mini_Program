@@ -13,6 +13,11 @@
 </script>
 
 <style lang="scss">
+	// 自定义容器
+	.cg_container{
+		height: 100vh;
+	}
+	
 	/*提交按钮样式 */
 	.submit_btn {
 		background-color: $theme-blue;
