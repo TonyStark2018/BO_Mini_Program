@@ -14,7 +14,7 @@
 		</scroll-view>
 	</view>
 </template>
-
+ 
 <script>
 	export default {
 		data() {
@@ -31,6 +31,7 @@
 					url: "/Api/Get_App_MSD_List"
 				})
 				this.msd_list = res.data.data;
+				console.log(this.msd_list)
 			}
 		}
 	}

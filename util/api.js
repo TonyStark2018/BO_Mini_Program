@@ -3,8 +3,8 @@
 
 
 // let base_url = "https://bo.mrodt.com";  //线上发布
-let base_url = "https://bo-test.mrodt.com";  //生成环境
-// let base_url = "https://localhost:44399"; //开发环境
+// let base_url = "https://bo-test.mrodt.com";  //生成环境
+let base_url = "https://localhost:44399"; //开发环境
 export const myRequest = (options) => {
 	return new Promise((resolve, reject) => {
 		uni.showLoading({

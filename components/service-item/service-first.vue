@@ -1,8 +1,8 @@
 <template>
 	<view class="com_content">
 		<scroll-view class="com-scroll-view" scroll-y>
-			<swiper :indicator-dots="true" indicator-color="#666" indicator-active-color="#fff" :autoplay="true" :interval="3000"
-			 :duration="1000">
+			<swiper class="com_swiper" :indicator-dots="true" indicator-color="#666" indicator-active-color="#fff" :autoplay="true"
+			 :interval="3000" :duration="1000">
 				<swiper-item class="swiper-item" v-for="(item,index) in com_info.com_Img_List" :key="index">
 					<image :src="getImgSrc(item)" mode="widthFix" style="width: 100%;"></image>
 				</swiper-item>
@@ -47,12 +47,17 @@
 		.com-scroll-view {
 			height: 100vh;
 
-			.swiper-item {
-				border-radius: 10rpx;
-			}
+			.com_swiper {
+				margin-top: 10rpx;
+				height: 35vh;
 
-			.com_info {
-				padding-top: 20rpx;
+				.swiper-item {
+					border-radius: 10rpx;
+				}
+
+				.com_info {
+					padding-top: 20rpx;
+				}
 			}
 		}
 	}
