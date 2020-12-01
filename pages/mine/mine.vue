@@ -20,6 +20,7 @@
 		<view class="mod_list" v-if="user.user_Identity=='运营经理'">
 			<view class="mod_item" v-for="item in inner_list" :key="item.name" @click="jumpToItemPage(item.url,user.uid)">
 				<view class="mod_name">{{item.name}}</view>
+				<view class="mod_tip" v-if="!item.count==0"></view>
 				<view class="mod_icon">
 					<uni-icons type="arrowright" size="18"></uni-icons>
 				</view>
@@ -63,7 +64,8 @@
 					url: ""
 				}, {
 					name: "用户验证",
-					url: "verify/verify"
+					url: "verify/verify",
+					count: 0,
 				}, {
 					name: "用户报修",
 					url: ""
@@ -83,6 +85,10 @@
 			this.getOpenid();
 			this.getUserInfo();
 		},
+		onShow() {
+			this.getOpenid();
+			this.getUserInfo();
+		},
 		methods: {
 			getOpenid() {
 				let openid = uni.getStorageSync("openid");
@@ -96,12 +102,20 @@
 						OpenID: this.openid,
 					}
 				})
-				this.user  = res.data.data;
+				this.user = res.data.data;
+				
+				let index = this.inner_list.map(item => item.name).indexOf("用户验证");
+				if (this.user.verify_Count !== 0) {
+					this.inner_list[index].count = this.user.verify_Count;
+				}else{
+					this.inner_list[index].count = 0;
+				}
+
 			},
-			jumpToItemPage(url,uid) {
-				if(url!==''){
+			jumpToItemPage(url, uid) {
+				if (url !== '') {
 					uni.navigateTo({
-						url:url+"?uid="+uid
+						url: url + "?uid=" + uid
 					})
 				}
 			},
@@ -164,13 +178,23 @@
 		.mod_item {
 			margin: 30rpx 0;
 			padding-bottom: 15rpx;
+			position: relative;
 			display: flex;
 			justify-content: space-between;
 			color: #666666;
 			border-bottom: 2rpx solid #ededed;
-			
-			.mod_name{
-				
+
+			.mod_name {}
+
+			.mod_tip {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 130rpx;
+				height: 16rpx;
+				width: 16rpx;
+				background: #e6192e;
+				border-radius: 50%;
 			}
 		}
 	}

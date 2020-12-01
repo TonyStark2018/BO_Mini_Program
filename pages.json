@@ -30,7 +30,7 @@
 				"navigationBarTitleText": "我的",
 				"enablePullDownRefresh": false
 			}
-		},{
+		}, {
 			"path": "pages/home/document/document",
 			"style": {
 				"navigationBarTitleText": "备件档案",
@@ -82,17 +82,15 @@
 				"navigationBarTitleText": "资料修改",
 				"enablePullDownRefresh": false
 			}
+		}, {
+			"path": "pages/mine/verify/verify",
+			"style": {
+				"navigationBarTitleText": "用户验证",
+				"enablePullDownRefresh": true
+			}
+
 		}
-	    ,{
-            "path" : "pages/mine/verify/verify",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "用户验证",
-                "enablePullDownRefresh": true
-            }
-            
-        }
-    ],
+	],
 	"tabBar": {
 		"color": "#7A7E83",
 		"selectedColor": "#245fb6",
@@ -150,6 +148,14 @@
 			"path": "pages/home/document/document_Item/document_Item",
 			"query": "doc_ID=20200609-1111-4b0c-8f2d-0374cdb68c51&uid=20200331-1331-459e-9fe1-3d1dff4d8238" //启动参数，在页面的onLoad函数里面得到。
 		}, {
+			"name": "维修中列表", //模式名称
+			"path": "pages/home/maintain/maintain",
+			"query": "link_UID=20200331-1331-459e-9fe1-3d1dff4d8238" //启动参数，在页面的onLoad函数里面得到。
+		}, {
+			"name": "维修中列表详情页", //模式名称
+			"path": "pages/home/maintain/maintain_Item/maintain_Item",
+			"query": "maid=20200609-1111-4b0c-8f2d-0374cdb68c51" //启动参数，在页面的onLoad函数里面得到。
+		}, {
 			"name": "服务", //模式名称
 			"path": "pages/service/service"
 		}, {
@@ -161,7 +167,7 @@
 		}, {
 			"name": "用户验证", //模式名称
 			"path": "pages/mine/verify/verify",
-			"query":"uid=20200331-1331-459e-9fe1-3d1dff4d8238"
+			"query": "uid=20200331-1331-459e-9fe1-3d1dff4d8238"
 		}]
 	}
 }

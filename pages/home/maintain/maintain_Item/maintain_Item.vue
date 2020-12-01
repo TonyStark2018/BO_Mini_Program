@@ -10,14 +10,17 @@
 		</view>
 
 		<view class="doc_body">
-			<view class="doc_info">
-				<text>{{main_item.create_dt}}</text>
-				<text>【{{main_item.doc_type}}】</text>
-				<text>{{main_item.doc_sn}}</text>
-			</view>
+			<view class="doc_title">录单日期</view>
+			<view class="doc_detail">{{main_item.create_dt}}</view>
 
 			<view class="doc_title">服务单号</view>
 			<view class="doc_detail">{{main_item.doc_no}}</view>
+
+			<view class="doc_title">服务类型</view>
+			<view class="doc_detail">{{main_item.doc_type}}</view>
+
+			<view class="doc_title">SN编号</view>
+			<view class="doc_detail">{{main_item.doc_sn}}</view>
 
 			<view class="doc_title">故障描述</view>
 			<view class="doc_detail">{{main_item.doc_des}}</view>
@@ -39,16 +42,28 @@
 
 			<view class="doc_title">收件图片</view>
 			<view class="doc_detail">
-				<image :src="getImgSrc(main_item.doc_receive_img01)" mode="aspectFill"></image>
-			</view>
-			<view class="doc_detail">
-				<image :src="getImgSrc(main_item.doc_receive_img02)" mode="aspectFill"></image>
-			</view>
-			<view class="doc_detail">
-				<image :src="getImgSrc(main_item.doc_receive_img03)" mode="aspectFill"></image>
-			</view>
-			<view class="doc_detail">
-				<image :src="getImgSrc(main_item.doc_receive_img04)" mode="aspectFill"></image>
+				<swiper class="doc_swiper" :indicator-dots="true" indicator-color="#666" indicator-active-color="#fff" :autoplay="true"
+				 :interval="3000" :duration="1000">
+					<swiper-item class="swiper-item">
+						<image :src="getImgSrc(main_item.doc_receive_img01)" @tap='_previewImage(main_item.doc_receive_img01)' mode="aspectFill"
+						 style="width: 100%;"></image>
+					</swiper-item>
+
+					<swiper-item class="swiper-item">
+						<image :src="getImgSrc(main_item.doc_receive_img02)" @tap='_previewImage(main_item.doc_receive_img02)' mode="aspectFill"
+						 style="width: 100%;"></image>
+					</swiper-item>
+
+					<swiper-item class="swiper-item">
+						<image :src="getImgSrc(main_item.doc_receive_img03)" @tap='_previewImage(main_item.doc_receive_img03)' mode="aspectFill"
+						 style="width: 100%;"></image>
+					</swiper-item>
+
+					<swiper-item class="swiper-item">
+						<image :src="getImgSrc(main_item.doc_receive_img04)" @tap='_previewImage(main_item.doc_receive_img04)' mode="aspectFill"
+						 style="width: 100%;"></image>
+					</swiper-item>
+				</swiper>
 			</view>
 		</view>
 	</view>
@@ -67,7 +82,7 @@
 		methods: {
 			async getMainInfo(maid) {
 				const res = await this.$myRequest({
-					url: "/Api/Get_App_Main_Info?maid="+maid,
+					url: "/Api/Get_App_Main_Info?maid=" + maid,
 				})
 				this.main_item = res.data.data;
 				console.log(this.main_item)

@@ -1,31 +1,35 @@
 <template>
 	<view>
 		<view class="doc_head">
+			<view class="doc_img">
+				<image :src="getImgSrc(doc_item.doc_Img)" mode="aspectFill"></image>
+			</view>
 			<view class="doc_content">
 				<view class="doc_name">{{doc_item.doc_Name}}</view>
 				<view class="doc_brand">{{doc_item.doc_Brand}}</view>
 				<view class="doc_model">{{doc_item.doc_Model}}</view>
+				<view>维修频次：{{doc_item.doc_Repaire_Count}} 次</view>
 			</view>
-			<view class="rep_count">{{doc_item.doc_Repaire_Count}} 次</view>
 		</view>
 
 		<view class="nav_bar">
 			<view class="nav_bar_left">
-				<view class="nav_bar_left_item" v-for="(item,index) in doc_item.main_List" :key="item.maid" @click="changeRightContent(index)">
+				<view :class="main_index===index?'nav_bar_left_item .nav_bar_left_item_active':'nav_bar_left_item'" v-for="(item,index) in doc_item.main_List"
+				 :key="item.maid" @click="changeRightContent(index)">
 					{{item.create_dt}}
 				</view>
 			</view>
 			<view class="nav_bar_right">
 				<scroll-view class="nav_bar_scroll" scroll-y :scroll-top="scrollTop" @scroll="scroll">
 					<view class="doc_body">
-						<!-- 存疑 -->
-						<view class="doc_info">
-							<text>【{{main_item.doc_type}}】</text>
-							<text>{{main_item.doc_sn}}</text>
-						</view>
-
 						<view class="doc_title">服务单号</view>
 						<view class="doc_detail">{{main_item.doc_no}}</view>
+
+						<view class="doc_title">服务类型</view>
+						<view class="doc_detail">{{main_item.doc_type}}</view>
+
+						<view class="doc_title">SN编号</view>
+						<view class="doc_detail">{{main_item.doc_sn}}</view>
 
 						<view class="doc_title">故障描述</view>
 						<view class="doc_detail">{{main_item.doc_des}}</view>
@@ -33,14 +37,19 @@
 						<view class="doc_title">附带设备</view>
 						<view class="doc_detail">{{main_item.doc_attach}}</view>
 
-						<view class="doc_title">修复前图</view>
+						<view class="doc_title">修复前后图</view>
 						<view class="doc_detail">
-							<image :src="getImgSrc(main_item.rep_before)" mode="aspectFill"></image>
-						</view>
+							<swiper class="doc_swiper" :indicator-dots="true" indicator-color="#666" indicator-active-color="#fff" :autoplay="true"
+							 :interval="3000" :duration="1000">
+								<swiper-item class="swiper-item">
+									<image :src="getImgSrc(main_item.rep_before)" @tap='_previewImage(main_item.rep_before)' mode="aspectFill"
+									 style="width: 100%;"></image>
+								</swiper-item>
 
-						<view class="doc_title">修复后图</view>
-						<view class="doc_detail">
-							<image :src="getImgSrc(main_item.rep_after)" mode="aspectFill"></image>
+								<swiper-item class="swiper-item">
+									<image :src="getImgSrc(main_item.rep_after)" @tap='_previewImage(main_item.rep_after)' mode="aspectFill" style="width: 100%;"></image>
+								</swiper-item>
+							</swiper>
 						</view>
 
 						<view class="doc_title">发运日期</view>
@@ -65,6 +74,7 @@
 				main_index: 0,
 				scrollTop: 0,
 				oldScrollTop: 0,
+
 				uid: '',
 				doc_id: '',
 				rep_count: 0,
@@ -91,13 +101,14 @@
 
 			changeRightContent(index) {
 				this.main_item = this.doc_item.main_List[index];
-				this.goTop()
+				this.main_index = index;
+				this.backTop()
 			},
 			scroll(e) {
 				//记录scroll  位置
 				this.oldScrollTop = e.detail.scrollTop
 			},
-			goTop() {
+			backTop() {
 				//视图会发生重新渲染
 				this.scrollTop = this.oldScrollTop
 				//当视图渲染结束 重新设置为0
@@ -115,12 +126,26 @@
 		display: flex;
 		border-bottom: 8rpx solid #f2f8fe;
 
+
+		.doc_img {
+			flex: 1;
+			border: 2rpx solid $theme-light-gray;
+			text-align: center;
+
+			image {
+				width: 100%;
+				height: 160rpx;
+				border-radius: 10rpx;
+			}
+		}
+
 		.doc_content {
-			flex: 5;
+			flex: 3;
 			display: flex;
 			flex-direction: column;
 			justify-content: space-around;
 			height: 160rpx;
+			padding-left: 20rpx;
 			font-size: $small-font-size;
 
 			.doc_name {
@@ -131,17 +156,6 @@
 
 			.doc_brand,
 			.doc_model {}
-		}
-
-		.rep_count {
-			flex: 1;
-			display: flex;
-			align-items: flex-end;
-			justify-items: flex-start;
-			padding-bottom: 4rpx;
-			// border-bottom: 2rpx solid #ced7de;
-			font-size: $small-font-size;
-			color: #717171;
 		}
 	}
 
@@ -160,14 +174,16 @@
 				text-align: center;
 			}
 
+			.nav_bar_left_item_active {
+				background-color: $theme-light-gray;
+			}
 		}
 
 		.nav_bar_right {
 			flex: 3;
 
 			.nav_bar_scroll {
-
-				height: 85vh;
+				height: 84vh;
 
 				.doc_body {
 					padding: 8rpx $margin-width/2;
@@ -196,13 +212,7 @@
 						}
 					}
 				}
-
-
 			}
-
-
 		}
-
-
 	}
 </style>
