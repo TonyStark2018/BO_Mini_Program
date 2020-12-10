@@ -6,7 +6,7 @@ Vue.prototype.$myRequest = myRequest
 
 Vue.prototype.$dev_url = "https://localhost:44399"
 Vue.prototype.$online_url = "https://bo-test.mrodt.com"
-Vue.prototype.$real_url = "https://bo.mrodt.com"
+Vue.prototype.$real_url = "https://bo.mrodt.com" 
 
 //预览图片
 Vue.prototype._previewImage = (img) => {

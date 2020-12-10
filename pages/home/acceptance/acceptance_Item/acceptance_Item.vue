@@ -25,14 +25,19 @@
 			<view class="doc_title">附带设备</view>
 			<view class="doc_detail">{{main_item.doc_attach}}</view>
 
-			<view class="doc_title">修复前图</view>
+			<view class="doc_title">修复前后图</view>
 			<view class="doc_detail">
-				<image :src="getImgSrc(main_item.rep_before)" mode="aspectFill"></image>
-			</view>
-
-			<view class="doc_title">修复后图</view>
-			<view class="doc_detail">
-				<image :src="getImgSrc(main_item.rep_after)" mode="aspectFill"></image>
+				<swiper class="doc_swiper" :indicator-dots="true" indicator-color="#666" indicator-active-color="#fff" :autoplay="true"
+				 :interval="3000" :duration="1000">
+					<swiper-item class="swiper-item">
+						<image :src="getImgSrc(main_item.rep_before)" @tap='_previewImage(main_item.rep_before)' mode="aspectFill"
+						 style="width: 100%;"></image>
+					</swiper-item>
+			
+					<swiper-item class="swiper-item">
+						<image :src="getImgSrc(main_item.rep_after)" @tap='_previewImage(main_item.rep_after)' mode="aspectFill" style="width: 100%;"></image>
+					</swiper-item>
+				</swiper>
 			</view>
 
 			<view class="doc_title">发运日期</view>
@@ -42,7 +47,7 @@
 			</view>
 
 			<view class="doc_detail">
-				<button type="primary" class="submit_btn">确认签收</button>
+				<button type="default" disabled class="submit_btn">确认签收</button>
 			</view>
 		</view>
 	</view>

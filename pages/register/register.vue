@@ -16,7 +16,7 @@
 				
 				<view class="uni-form-item reg_item" v-show="user_Identity=='潜在客户'">
 					<view class="reg-title">* 单位名称</view>
-					<input class="input" :value="cust_name" placeholder="请填写公司名称"/>
+					<input class="input" v-model="cust_name" placeholder="请填写公司名称"/>
 				</view>
 
 				<view class="uni-form-item reg_item" v-show="user_Identity=='合作伙伴'">

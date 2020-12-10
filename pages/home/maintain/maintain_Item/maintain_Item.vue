@@ -37,9 +37,6 @@
 			<view class="doc_title">当前状态</view>
 			<view class="doc_detail">{{main_item.doc_status}}</view>
 
-			<view class="doc_title">进展情况</view>
-			<view class="doc_detail">{{main_item.doc_progress_status}}</view>
-
 			<view class="doc_title">收件图片</view>
 			<view class="doc_detail">
 				<swiper class="doc_swiper" :indicator-dots="true" indicator-color="#666" indicator-active-color="#fff" :autoplay="true"

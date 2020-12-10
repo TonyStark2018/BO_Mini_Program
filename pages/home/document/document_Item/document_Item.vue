@@ -13,13 +13,15 @@
 		</view>
 
 		<view class="nav_bar">
-			<view class="nav_bar_left">
-				<view :class="main_index===index?'nav_bar_left_item .nav_bar_left_item_active':'nav_bar_left_item'" v-for="(item,index) in doc_item.main_List"
-				 :key="item.maid" @click="changeRightContent(index)">
-					{{item.create_dt}}
-				</view>
+			<view class="nav_bar_left" :style="{height:navHeight}">
+				<scroll-view class="nav_bar_left_scroll" scroll-y>
+					<view :class="main_index===index?'nav_bar_left_item .nav_bar_left_item_active':'nav_bar_left_item'" v-for="(item,index) in doc_item.main_List"
+					 :key="item.maid" @click="changeRightContent(index)">
+						{{item.create_dt}}
+					</view>
+				</scroll-view>
 			</view>
-			<view class="nav_bar_right">
+			<view class="nav_bar_right":style="{height:navHeight}">
 				<scroll-view class="nav_bar_scroll" scroll-y :scroll-top="scrollTop" @scroll="scroll">
 					<view class="doc_body">
 						<view class="doc_title">服务单号</view>
@@ -58,7 +60,6 @@
 							<text>&nbsp;{{main_item.doc_deliver_remark}}</text>
 						</view>
 					</view>
-
 				</scroll-view>
 			</view>
 		</view>
@@ -74,11 +75,28 @@
 				main_index: 0,
 				scrollTop: 0,
 				oldScrollTop: 0,
+				
+				pH: 0, //窗口高度
+				navHeight: 0, //元素的所需高度
 
 				uid: '',
 				doc_id: '',
 				rep_count: 0,
 			};
+		},
+		onReady(){
+			let that = this;
+			uni.getSystemInfo({ //调用uni-app接口获取屏幕高度
+				success(res) { //成功回调函数
+					that._data.pH = res.windowHeight //windoHeight为窗口高度，主要使用的是这个
+					let titleH = uni.createSelectorQuery().select(".doc_head"); //想要获取高度的元素名（class/id）
+					titleH.boundingClientRect(data => {
+						// console.log(data)
+						let pH = that._data.pH;
+						that._data.navHeight = (pH - data.height) * 2 + 'rpx' //计算高度：元素高度=窗口高度-元素距离顶部的距离（data.top）
+					}).exec()
+				}
+			})
 		},
 		onLoad(params) {
 			this.doc_id = params.doc_ID;
@@ -165,17 +183,20 @@
 
 		.nav_bar_left {
 			flex: 1;
-			border-right: 2rpx solid #ccc;
+			border-right: 4rpx solid #f2f8fe;
 
+			.nav_bar_left_scroll {
+				height: 100%;
 
-			.nav_bar_left_item {
-				font-size: $small-font-size;
-				line-height: 60rpx;
-				text-align: center;
-			}
+				.nav_bar_left_item {
+					font-size: $small-font-size;
+					line-height: 60rpx;
+					text-align: center;
+				}
 
-			.nav_bar_left_item_active {
-				background-color: $theme-light-gray;
+				.nav_bar_left_item_active {
+					background-color: $theme-light-gray;
+				}
 			}
 		}
 
@@ -183,7 +204,7 @@
 			flex: 3;
 
 			.nav_bar_scroll {
-				height: 84vh;
+				height: 100%;
 
 				.doc_body {
 					padding: 8rpx $margin-width/2;
