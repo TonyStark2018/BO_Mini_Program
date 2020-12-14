@@ -11,24 +11,22 @@
 
 				<view class="uni-form-item reg_item" v-show="user_Identity=='合作伙伴'">
 					<view class="reg-title">* 单位名称</view>
-					<uni-combox :candidates="app_user.cust_Name_List" placeholder="请选择" v-model="cust_name" ></uni-combox>
-				</view>
-				
-				<view class="uni-form-item reg_item" v-show="user_Identity=='潜在客户'">
-					<view class="reg-title">* 单位名称</view>
-					<input class="input" v-model="cust_name" placeholder="请填写公司名称"/>
+					<view class="reg_auto">
+						<input-autocomplete :value="cust_name" v-model="cust_name" placeholder="请输入公司名称" highlightColor="#f1f1f1"
+						 :stringList="app_user.cust_Name_List" v-on:selectItem="selectItemD"></input-autocomplete>
+					</view>
 				</view>
 
+				<view class="uni-form-item reg_item" v-show="user_Identity=='潜在客户'">
+					<view class="reg-title">* 单位名称</view>
+					<input class="input" v-model="cust_name" placeholder="请填写公司名称" />
+				</view>
 				<view class="uni-form-item reg_item" v-show="user_Identity=='合作伙伴'">
 					<view class="reg-title">* 客户经理</view>
 					<picker mode="selector" :range="sales_Manager_List" @change="handleManagerChange($event)">
 						<view class="input">{{sales_Manager_List[Manager_index]}}</view>
 					</picker>
 				</view>
-
-
-
-
 				<view class="uni-form-item reg_item">
 					<view class="reg-title">担任职务</view>
 					<input class="input" name="position" type="text" placeholder="请填写您的职务名称" />
@@ -49,10 +47,10 @@
 </template>
 
 <script>
-	import uniCombox from "@/components/uni-combox/uni-combox"
+	import inputAutocomplete from '@/components/input-autocomplete/input-autocomplete.vue';
 	export default {
 		components: {
-			uniCombox
+			inputAutocomplete
 		},
 		data() {
 			return {
@@ -80,6 +78,16 @@
 			this.getUserEmpty();
 		},
 		methods: {
+			//响应选择事件，接收选中的数据
+			selectItemD(data) {
+				console.log('收到数据了:', data);
+			},
+
+			//响应选择事件，接收选中的数据
+			printLog() {
+				console.log(this.testObj);
+			},
+
 			handleIdentityChange(e) {
 				this.Identity_index = e.detail.value;
 				this.user_Identity = this.user_Identity_List[this.Identity_index]
@@ -102,7 +110,6 @@
 				this.app_user = res.data.data;
 				this.user_Identity_List = ["请选择", ...res.data.data.user_Identity_List]
 				this.sales_Manager_List = ["请选择", ...res.data.data.sales_Manager_List]
-				// console.log(this.sales_Manager_List)
 			},
 
 			// 获取用户已授权信息
@@ -187,10 +194,10 @@
 				border-bottom: 2rpx solid #2874d7;
 				padding: 20rpx 0;
 			}
-
-			.uni-combox {
-				font-size: 32rpx;
+			
+			.reg_auto{
 				border-bottom: 2rpx solid #2874d7;
+				padding: 10rpx 0;
 			}
 
 			.confirm-btn {
