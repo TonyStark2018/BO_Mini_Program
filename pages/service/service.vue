@@ -12,9 +12,6 @@
 				<first></first>
 			</swiper-item>
 			<swiper-item class="swiper-item">
-				<second></second>
-			</swiper-item>
-			<swiper-item class="swiper-item">
 				<third></third>
 			</swiper-item>
 		</swiper>
@@ -34,7 +31,7 @@
 		},
 		data() {
 			return {
-				nav_bar: ["走进宝欧", "行业分类", "检测系统"],
+				nav_bar: ["走进宝欧", "检测系统"],
 				current: 0
 			};
 		},
@@ -78,7 +75,6 @@
 		
 		.swiper-item {
 			height: 100%;
-			
 		}
 	}
 </style>

@@ -50,31 +50,45 @@
 		},
 		data() {
 			return {
+				// inner_list: [{
+				// 	name: "备件商城",
+				// 	url: ""
+				// }, {
+				// 	name: "在修备件",
+				// 	url: ""
+				// }, {
+				// 	name: "等待验收",
+				// 	url: ""
+				// }, {
+				// 	name: "应收货款",
+				// 	url: ""
+				// }, {
+				// 	name: "用户验证",
+				// 	url: "verify/verify",
+				// 	count: 0,
+				// }, {
+				// 	name: "用户报修",
+				// 	url: ""
+				// }],
+				// outer_list: [{
+				// 	name: "备件商城",
+				// 	url: ""
+				// }, {
+				// 	name: "我的报修",
+				// 	url: ""
+				// }],
+
+
 				inner_list: [{
 					name: "备件商城",
-					url: ""
-				}, {
-					name: "在修备件",
-					url: ""
-				}, {
-					name: "等待验收",
-					url: ""
-				}, {
-					name: "应收货款",
 					url: ""
 				}, {
 					name: "用户验证",
 					url: "verify/verify",
 					count: 0,
-				}, {
-					name: "用户报修",
-					url: ""
 				}],
 				outer_list: [{
 					name: "备件商城",
-					url: ""
-				}, {
-					name: "我的报修",
 					url: ""
 				}],
 				user: {},
@@ -103,11 +117,11 @@
 					}
 				})
 				this.user = res.data.data;
-				
+
 				let index = this.inner_list.map(item => item.name).indexOf("用户验证");
 				if (this.user.verify_Count !== 0) {
 					this.inner_list[index].count = this.user.verify_Count;
-				}else{
+				} else {
 					this.inner_list[index].count = 0;
 				}
 
@@ -155,6 +169,10 @@
 			padding: 0 16rpx;
 			font-size: $small-font-size;
 			color: #013a80;
+
+			.user_com {
+				white-space: nowrap;
+			}
 		}
 
 		.person_info {

@@ -25,7 +25,6 @@
 		},
 
 		onLoad(params) {
-			console.log(params)
 			this.getNewsItem(params.news_ID)
 		},
 

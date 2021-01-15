@@ -3,7 +3,7 @@
 		<scroll-view class="mysc-view" scroll-y>
 			<view class="msd_list">
 				<view class="msd_info" v-for="(item,index) in msd_list" :key='index'>
-					<image class="msd_img" :src="getImgSrc(item.msD_Img)" @tap='_previewImage(item.msD_Img)' mode="aspectFill"></image>
+					<image class="msd_img" :src="getImgSrc(item.msD_Img)" @tap='_previewImage(item.msD_Img)' lazy-load mode="aspectFill"></image>
 					<view class="msd_content">
 						<view class="msd_name">{{item.msD_Name}}</view>
 						<view class="msd_brand">{{item.msD_Sn}}</view>

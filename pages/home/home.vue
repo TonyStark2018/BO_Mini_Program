@@ -5,18 +5,19 @@
 			<view class="user_img">
 				<image :src="user.app_User_Img" mode="widthFix"></image>
 			</view>
+			
 			<view class="user_info">
 				<view class="user_name">{{user.app_User_Name}}</view>
 				<view class="user_pos">{{user.app_User_Postion}}</view>
 				<view class="user_com">{{user.app_User_Company}}</view>
 			</view>
 
-			<view v-if="user.app_User_Status=='已开通'">
+			<view class="user_status" v-if="user.app_User_Status=='已开通'">
 				<text class="iconfont icon-kaitong"></text>
 				<text class="user_status_active">{{user.app_User_Status}}</text>
 			</view>
 
-			<view v-else>
+			<view class="user_status" v-else>
 				<text class="iconfont icon-weikaitong"></text>
 				<text class="user_status_active_not">{{user.app_User_Status}}</text>
 			</view>
@@ -137,46 +138,55 @@
 		border-bottom: 2rpx solid #e0e5e9;
 
 		.user_img {
-			flex: 1;
-		}
+			width: 20%;
 
-		.user_img image {
-			height: 100%;
-			width: 100%;
-			border-radius: 50%;
+			image {
+				height: 100%;
+				width: 100%;
+				border-radius: 50%;
+			}
 		}
 
 		.user_info {
-			flex: 3;
+			width: 60%;
 			display: flex;
 			flex-direction: column;
-			justify-content: space-around;
+			justify-content: space-between;
 			padding: 0 16rpx;
 			font-size: $small-font-size;
 			color: #013a80;
+
+			.user_com {
+				white-space: nowrap;
+			}
 		}
 
-		.icon-kaitong,
-			{
-			flex: 1;
-			font-size: $def-font-size;
-			color: $theme-green;
-			padding-right: 10rpx;
-		}
-
-		.user_status_active {
-			// color: $theme-green;
-		}
-
-		.icon-weikaitong {
-			flex: 1;
-			font-size: $def-font-size;
-			color: $theme-gray;
-			padding-right: 10rpx;
-		}
-
-		.user_status_active_not {
-			// color: $theme-gray;
+		.user_status{
+			width: 20%;
+			text-align: right;
+			
+			.icon-kaitong {
+				font-size: $small-font-size;
+				color: $theme-green;
+				padding-right: 10rpx;
+			}
+			
+			.user_status_active {
+				// color: $theme-green;
+				font-size: $small-font-size;
+			}
+			
+			.icon-weikaitong {
+				flex: 1;
+				font-size: $small-font-size;
+				color: $theme-gray;
+				padding-right: 10rpx;
+			}
+			
+			.user_status_active_not {
+				// color: $theme-gray;
+				font-size: $small-font-size;
+			}
 		}
 	}
 
