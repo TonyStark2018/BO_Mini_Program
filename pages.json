@@ -94,10 +94,9 @@
             "path" : "pages/mine/shop/shop",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "备件商城",
                 "enablePullDownRefresh": false
             }
-            
         }
     ],
 	"tabBar": {
@@ -177,6 +176,9 @@
 			"name": "用户验证", //模式名称
 			"path": "pages/mine/verify/verify",
 			"query": "uid=20200331-1331-459e-9fe1-3d1dff4d8238"
+		}, {
+			"name": "备件商城", //模式名称
+			"path": "pages/mine/shop/shop"
 		}]
 	}
 }

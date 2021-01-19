@@ -1,24 +1,24 @@
 <template>
 	<view>
-		<uni-search-bar :radius="5" placeholder="备件名称/规格型号/品牌" @confirm="searchDocList($event)" @cancel="cancelSearch($event)"></uni-search-bar>
+		<uni-search-bar :radius="5" placeholder="备件名称/规格型号/品牌" @confirm="searchShopList($event)" @cancel="cancelSearch($event)"></uni-search-bar>
 		
 		<view class="shop_wrap">
-			<view class="shop_item" v-for="item in testList" :key='item.id'>
+			<view class="shop_item" v-for="item in shopList" :key='item.id'>
 				<view class="shop_type">{{item.type}}</view>
 				<view class="shop_img">
-					<image :src="item.img" mode="aspectFill"></image>
+					<image :src="getImgSrc(item.img)" mode="aspectFill"></image>
 				</view>
 				<view class="shop_info">
 					<text class="shop_info_brand">{{item.brand}}</text>
 					<text>{{item.name}}</text> 
 					</br>
-					<text class="shop_info_model">{{item.model_No}}</text>
+					<text class="shop_info_model">{{item.model}}</text>
 				</view>
 				<view class="shop_stock_count">
 					<text>库存：</text>
-					<text>{{item.stock_Count}}</text>
+					<text>{{item.stock}}</text>
 				</view>
-				<view class="shop_sale_price">￥{{item.sale_Price}}</view>
+				<view class="shop_sale_price">￥{{item.price}}</view>
 			</view>
 		</view>
 		
@@ -34,71 +34,41 @@
 		},
 		data() {
 			return {
-				showList: [],
+				shopList: [],
 				pageindex: 1,
 				keyword: '',
 				total_count: 0,
-				flag: false,
-				testList:[
-					{
-						id:1,
-						img:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg011.hc360.cn%2Fm4%2FM01%2F8F%2F95%2FwKhQ6VSSLiaEdPvoAAAAAEFI_1w533.jpg&refer=http%3A%2F%2Fimg011.hc360.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613528848&t=5837f42af6a2bcea986ea832c4775024',
-						type:"全新",
-						name:"驱动",
-						brand:"西门子",
-						model_No:"7SN1213-1AA00-0DA2",
-						stock_Count:300,
-						sale_Price:3256.85,
-					},{
-						id:2,
-						img:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg011.hc360.cn%2Fm4%2FM01%2F8F%2F95%2FwKhQ6VSSLiaEdPvoAAAAAEFI_1w533.jpg&refer=http%3A%2F%2Fimg011.hc360.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613528848&t=5837f42af6a2bcea986ea832c4775024',
-						name:"驱动",
-						type:"全新",
-						brand:"西门子",
-						model_No:"7SN1213-1AA00-0DA2",
-						stock_Count:300,
-						sale_Price:3256.85,
-					},{
-						id:3,
-						img:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg011.hc360.cn%2Fm4%2FM01%2F8F%2F95%2FwKhQ6VSSLiaEdPvoAAAAAEFI_1w533.jpg&refer=http%3A%2F%2Fimg011.hc360.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1613528848&t=5837f42af6a2bcea986ea832c4775024',
-						name:"驱动",
-						type:"全新",
-						brand:"西门子",
-						model_No:"7SN1213-1AA00-0DA2",
-						stock_Count:300,
-						sale_Price:3256.85,
-					}
-				]
+				flag: false
 			};
 		},
 		onLoad() {
-			// this.getShowList();
+			this.getShopList();
 		},
 		methods:{
 			//获取页面数据
-			async getShowList() {
+			async getShopList() {
 				this.keyword = '';
 				const res = await this.$myRequest({
-					url: "/Api/Get_App_Shop_List",
+					url: "/Api/Get_App_Doc_Shop",
 					data: {
 						keyword: this.keyword,
 						pageindex: 1,
 					}
 				})
-				this.showList = res.data.data;
-				this.total_count = this.showList.length;
+				this.shopList = res.data.data;
+				this.total_count = this.shopList.length;
 			},
 			
 			async getMoreList(pageindex) {
 				const res = await this.$myRequest({
-					url: "/Api/Get_App_Shop_List",
+					url: "/Api/Get_App_Doc_Shop",
 					data: {
 						pageindex: pageindex,
 					}
 				})
 				let list = res.data.data;
-				this.showList = [...this.showList, ...list];
-				this.total_count = this.showList.length;
+				this.shopList = [...this.shopList, ...list];
+				this.total_count = this.shopList.length;
 			
 				if (this.total_count < 10 * pageindex) {
 					this.flag = true;
@@ -119,14 +89,14 @@
 				this.pageindex = 1;
 				this.keyword = event.value;
 				const res = await this.$myRequest({
-					url: "/Api/Get_App_Shop_List",
+					url: "/Api/Get_App_Doc_Shop",
 					data: {
 						keyword: this.keyword,
 						pageindex: this.pageindex,
 					}
 				})
-				this.showList = res.data.data;
-				this.total_count = this.showList.length;
+				this.shopList = res.data.data;
+				this.total_count = this.shopList.length;
 			
 				if (this.total_count < 10 * this.pageindex) {
 					this.flag = true;
@@ -135,7 +105,7 @@
 			
 			// 取消搜索
 			async cancelSearch() {
-				this.getShowList();
+				this.getShopList();
 			},
 		}
 	}
@@ -213,7 +183,10 @@
 		
 		
 		.reach_Bottom{
-			
+			margin: $margin-width;
+			font-size: $small-font-size;
+			text-align: center;
+			color: #8390a3;
 		}
 	}
 </style>

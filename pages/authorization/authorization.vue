@@ -36,8 +36,8 @@
 								provider: "weixin",
 								success: (res) => {
 									// let base_url = this.$online_url;	//生产环境
-									let base_url = this.$dev_url;	//开发环境
-									// let base_url = this.$real_url;	//线上环境
+									// let base_url = this.$dev_url;	//开发环境
+									let base_url = this.$real_url;	//线上环境
 									let js_code = res.code;
 									uni.request({
 										url: base_url+"/Api/Get_App_User_OpenID_By_Code?Code="+js_code,

@@ -27,7 +27,7 @@
 			</view>
 		</view>
 		<view class="mod_list" v-else>
-			<view class="mod_item" v-for="item in outer_list" :key="item.name">
+			<view class="mod_item" v-for="item in outer_list" :key="item.name" @click="jumpToItemPage(item.url,user.uid)">
 				<view class="mod_name">{{item.name}}</view>
 				<view class="mod_icon">
 					<uni-icons type="arrowright" size="18"></uni-icons>
@@ -81,7 +81,7 @@
 
 				inner_list: [{
 					name: "备件商城",
-					url: ""
+					url: "shop/shop"
 				}, {
 					name: "用户验证",
 					url: "verify/verify",
@@ -89,7 +89,7 @@
 				}],
 				outer_list: [{
 					name: "备件商城",
-					url: ""
+					url: "shop/shop"
 				}],
 				user: {},
 				openid: '',

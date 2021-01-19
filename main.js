@@ -11,7 +11,7 @@ Vue.prototype.$real_url = "https://bo.mrodt.com"
 //预览图片
 Vue.prototype._previewImage = (img) => {
 	if (img !== '') {
-		img = "https://bo.mrodt.com/" + img
+		img = "https://bo-test.mrodt.com/" + img
 	} else {
 		img = "https://bo.mrodt.com/Images/NotImg.jpg"
 	}
@@ -26,7 +26,7 @@ Vue.prototype._previewImage = (img) => {
 Vue.prototype.getImgSrc = (img) => {
 	let imgSrc = img
 	if (imgSrc !== '') {
-		imgSrc = "https://bo.mrodt.com/" + img
+		imgSrc = "https://bo-test.mrodt.com/" + img
 	} else {
 		imgSrc = "https://bo.mrodt.com/Images/NotImg.jpg"
 	}
